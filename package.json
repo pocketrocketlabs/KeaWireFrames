@@ -1,0 +1,15 @@
+{
+  "name": "kea-wireframes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "serve:local": "node serve.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^9.1.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^20.0.0"
+  }
+}

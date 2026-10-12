@@ -1,0 +1,7 @@
+node_modules/
+.netlify/
+comments.json
+.DS_Store
+*.log
+.env
+.env.*

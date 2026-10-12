@@ -1,0 +1,14 @@
+[build]
+  publish = "."
+  # No build step — static HTML + one function
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = []
+
+# /api/comments is served by netlify/functions/comments.mjs (config.path)
+[[redirects]]
+  from = "/"
+  to = "/kea_mockup.html"
+  status = 200
