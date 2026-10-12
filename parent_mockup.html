@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kea Portal · Parent Wireframes</title>
+  <style>
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --card: #ffffff;
+      --elevated: #f0f0f0;
+      --border: #111111;
+      --border-strong: #111111;
+      --text: #111111;
+      --muted: #555555;
+      --muted-2: #777777;
+      --accent: #111111;
+      --accent-soft: #e8e8e8;
+      --ok: #111111;
+      --purple: #111111;
+      --wellbeing: #111111;
+      --btn-primary: #111111;
+      --btn-primary-text: #ffffff;
+      --radius: 4px;
+      --radius-sm: 2px;
+      --tab-h: 64px;
+      --hatch: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 4px,
+        #e8e8e8 4px,
+        #e8e8e8 8px
+      );
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* body overridden by page chrome */
+    .demo-trigger {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted-2);
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed #888;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+    }
+    .demo-trigger:hover { color: var(--muted); }
+    .demo-row {
+      display: flex; flex-wrap: wrap; gap: 10px 14px;
+      margin-top: 8px; margin-bottom: 4px;
+    }
+
+    /* .stage overridden */
+    /* .col page layout unused */
+
+    .phone {
+      width: 375px;
+      height: 780px;
+      border-radius: 28px;
+      border: 2px solid #111;
+      background: var(--bg);
+      overflow: hidden;
+      position: relative;
+      box-shadow: none;
+    }
+    .screen {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .screen.active { display: flex; }
+
+    .status-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 20px 6px;
+      font-size: 11px; font-weight: 600;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    .notch {
+      position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+      width: 100px; height: 22px; background: #111;
+      border-radius: 12px; z-index: 5; pointer-events: none;
+      border: none;
+    }
+
+    .app-header {
+      padding: 4px 16px 12px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .app-header h1 {
+      font-size: 22px; font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .app-header .sub {
+      font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.35;
+    }
+    .hdr-actions {
+      display: flex; gap: 8px; align-items: center; flex-shrink: 0; padding-top: 2px;
+    }
+    .icon-btn {
+      width: 34px; height: 34px; border-radius: 2px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 12px;
+    }
+    .avatar-sm {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--hatch);
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; cursor: pointer;
+      color: transparent;
+      position: relative;
+    }
+    .avatar-sm::after {
+      content: "";
+      position: absolute; inset: 4px;
+      border: 1px solid #999;
+      border-radius: 50%;
+    }
+
+    .scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 16px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scroll::-webkit-scrollbar { width: 0; }
+
+    .bottom-nav {
+      flex-shrink: 0;
+      display: flex;
+      border-top: 1.5px solid var(--border);
+      background: #fff;
+      padding: 8px 4px 18px;
+      height: var(--tab-h);
+    }
+    .bottom-nav button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--muted-2);
+      font-size: 9px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .bottom-nav button.on { color: var(--text); }
+    .bottom-nav button.on .nav-ico {
+      outline: 1.5px solid #111;
+      outline-offset: 2px;
+    }
+    .bottom-nav .nav-ico {
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      border: 1px solid #bbb;
+      border-radius: 2px;
+      background: #fafafa;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: none;
+    }
+    .card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .card .muted { color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+    .filters {
+      display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .select-mock {
+      flex: 1;
+      min-width: 120px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .select-mock span.label {
+      display: block; font-size: 10px; color: var(--muted); margin-bottom: 2px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .seg {
+      display: inline-flex;
+      background: #fff;
+      border-radius: 2px;
+      padding: 0;
+      border: 1.5px solid var(--border);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .seg button {
+      border: none;
+      border-right: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 0;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .seg button:last-child { border-right: none; }
+    .seg button.on {
+      background: #111;
+      color: #fff;
+    }
+
+    .chips {
+      display: flex; gap: 8px; overflow-x: auto; margin-bottom: 14px;
+      padding-bottom: 2px;
+    }
+    .chips::-webkit-scrollbar { height: 0; }
+    .chip {
+      flex-shrink: 0;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 2px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .chip.on {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .btn {
+      border: 1.5px solid #111;
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary {
+      background: var(--btn-primary);
+      color: var(--btn-primary-text);
+    }
+    .btn-ghost {
+      background: #fff;
+      color: var(--text);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+    }
+    .btn-row {
+      display: flex; gap: 8px; margin-top: 12px;
+    }
+    .btn-row .btn { flex: 1; }
+    .btn-block { width: 100%; }
+
+    .field-group { margin-bottom: 14px; }
+    .field-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .field-group .hint {
+      font-size: 11px;
+      color: var(--muted-2);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .input, .textarea {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+    }
+    .input:focus, .textarea:focus { border-color: #111; background: #fafafa; }
+    .textarea { min-height: 110px; resize: none; line-height: 1.5; }
+    .input-wrap { position: relative; }
+    .input-wrap .suffix {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 14px; pointer-events: none;
+    }
+
+    .child-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 16px 14px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .child-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--hatch);
+      border: 1.5px solid var(--border);
+      margin: 0 auto 10px; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      color: transparent; font-size: 0;
+    }
+    .child-avatar::before,
+    .child-avatar::after {
+      content: "";
+      position: absolute;
+      background: #999;
+    }
+    .child-avatar::before {
+      width: 1px; height: 70%; top: 15%; left: 50%;
+    }
+    .child-avatar::after {
+      height: 1px; width: 70%; left: 15%; top: 50%;
+    }
+    .child-avatar .online {
+      position: absolute; right: 2px; bottom: 2px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #111; border: 2px solid #fff;
+      z-index: 1;
+    }
+    .child-card .name { font-size: 16px; font-weight: 700; }
+    .child-card .age { font-size: 12px; color: var(--muted); margin: 2px 0 14px; }
+    .stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px;
+      text-align: left; margin-bottom: 14px;
+    }
+    .stats .k { font-size: 10px; color: var(--muted-2); text-transform: uppercase; letter-spacing: 0.04em; }
+    .stats .v { font-size: 14px; font-weight: 700; margin-top: 2px; }
+
+    .radar-wrap {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 0 16px;
+    }
+    .radar { width: 220px; height: 220px; }
+    .domain-list { margin-top: 8px; }
+    .domain-list dt {
+      font-size: 13px; font-weight: 700; margin-top: 10px;
+    }
+    .domain-list dd {
+      font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4;
+    }
+
+    .insight-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .insight-top {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .spark {
+      width: 28px; height: 28px; border-radius: 2px;
+      background: var(--hatch);
+      border: 1px solid #111;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0; flex-shrink: 0;
+      color: transparent;
+    }
+    .spark.purple { background: var(--hatch); color: transparent; }
+    .tag {
+      font-size: 9px; font-weight: 700; letter-spacing: .06em;
+      padding: 3px 7px; border-radius: 2px;
+      background: #fff; color: var(--text);
+      border: 1px solid #111;
+      text-transform: uppercase;
+    }
+    .tag.summary,
+    .tag.wellbeing,
+    .tag.learning { background: #fff; color: #111; }
+    .insight-date { margin-left: auto; font-size: 11px; color: var(--muted-2); }
+    .insight-title { font-size: 14px; font-weight: 700; margin: 4px 0 8px; }
+    .insight-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .reco {
+      margin-top: 12px;
+      background: #f7f7f7;
+      border: 1.5px dashed #111;
+      border-radius: 2px;
+      padding: 12px;
+    }
+    .reco .r-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      color: var(--muted); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+      text-transform: uppercase;
+    }
+    .reco p { font-size: 12px; color: var(--muted); line-height: 1.45; }
+
+    .section-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .section-head h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .section-head span { font-size: 11px; color: var(--muted-2); }
+
+    .empty {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+      border: 1.5px dashed #999;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .empty .big {
+      width: 48px; height: 48px; margin: 0 auto 12px;
+      border: 1.5px solid #111;
+      background: var(--hatch);
+      font-size: 0; color: transparent;
+    }
+    .empty h3 { color: var(--text); font-size: 16px; margin-bottom: 6px; }
+    .empty p { font-size: 13px; line-height: 1.45; margin-bottom: 16px; }
+
+    .loading {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 60px 20px; gap: 14px;
+      color: var(--muted);
+    }
+    .spinner {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid #ccc;
+      border-top-color: #111;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .skeleton {
+      background: #e8e8e8;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      height: 14px;
+      margin-bottom: 10px;
+      animation: none;
+    }
+
+    .sheet-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.25);
+      z-index: 20; display: none;
+      align-items: flex-end;
+    }
+    .sheet-overlay.show { display: flex; }
+    .sheet {
+      width: 100%;
+      max-height: 92%;
+      background: #fff;
+      border-radius: 8px 8px 0 0;
+      border-top: 1.5px solid #111;
+      padding: 16px 16px 28px;
+      overflow-y: auto;
+      animation: slideUp .28s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .sheet-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .sheet-top h2 { font-size: 20px; }
+    .sheet-top .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .close-x {
+      width: 32px; height: 32px; border-radius: 2px;
+      border: 1.5px solid #111; background: #fff; color: var(--text);
+      cursor: pointer; font-size: 16px;
+    }
+
+    .toast {
+      position: absolute; left: 16px; right: 16px; top: 54px;
+      background: #fff;
+      border: 1.5px solid #111;
+      border-radius: 2px;
+      padding: 12px 14px;
+      z-index: 30;
+      display: none;
+      box-shadow: none;
+      animation: slideIn .3s ease;
+    }
+    .toast.show { display: block; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .toast .t-title { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+    .toast .t-body { font-size: 12px; color: var(--muted); }
+
+    .back-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 16px 8px;
+    }
+    .back-row button {
+      border: none; background: transparent; color: var(--text);
+      font-size: 18px; cursor: pointer; padding: 4px;
+    }
+
+    .progress-bar {
+      height: 8px; border-radius: 0; background: #e8e8e8;
+      border: 1px solid #111; overflow: hidden;
+      margin: 8px 0;
+    }
+    .progress-bar > i {
+      display: block; height: 100%; background: #111;
+      border-radius: 0;
+    }
+
+    .date-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin-bottom: 14px;
+      font-size: 12px; font-weight: 700;
+    }
+    .date-nav button {
+      border: none; background: transparent; color: var(--text);
+      cursor: pointer; font-size: 16px; padding: 0 6px;
+    }
+
+    .settings-section {
+      margin-bottom: 20px;
+    }
+    .settings-section > h3 {
+      font-size: 13px; font-weight: 700; margin-bottom: 4px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .settings-section > .desc {
+      font-size: 12px; color: var(--muted); margin-bottom: 12px;
+    }
+
+    .login-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 32px 24px;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 52px; height: 52px; border-radius: 2px;
+      background: var(--hatch);
+      border: 1.5px solid #111;
+      margin-bottom: 8px;
+    }
+
+    .error-banner {
+      background: #fff;
+      border: 1.5px solid #111;
+      border-left: 6px solid #111;
+      color: #111;
+      border-radius: 2px;
+      padding: 10px 12px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .success-banner {
+      background: #fff;
+      border: 1.5px dashed #111;
+      color: #111;
+      border-radius: 2px;
+      padding: 10px 12px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .hidden { display: none !important; }
+  
+
+    /* ── page chrome (grid / controls / comments) ── */
+    :root {
+      --page: #e8e8e8;
+      --ink: #111;
+      --mid: #555;
+      --w: 320px;
+      --h: 640px;
+    }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      padding: 24px 18px 80px;
+      min-height: 100vh;
+    }
+    .app-switch {
+      max-width: 1400px;
+      margin: 0 auto 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .app-switch .sw {
+      border: 1.5px solid #111;
+      background: #fff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 12px;
+      cursor: pointer;
+      color: #555;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .app-switch .sw:hover { color: #111; background: #f5f5f5; }
+    .app-switch .sw.on { background: #111; color: #fff; }
+    .app-switch .sw-hint { font-size: 11px; color: #777; margin-left: 4px; }
+
+    .topbar {
+      max-width: 1400px;
+      margin: 0 auto 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .brand h1 { margin: 0 0 4px; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+    .brand p { margin: 0; font-size: 12px; color: var(--mid); max-width: 440px; line-height: 1.4; }
+    .controls { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .control-row {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end;
+    }
+    .control-row span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--mid); margin-right: 2px;
+    }
+    .pills {
+      display: flex; flex-wrap: wrap; gap: 4px; padding: 4px;
+      background: #fff; border: 1.5px solid #111;
+    }
+    .pill {
+      border: 1px solid transparent; background: transparent;
+      font: inherit; font-size: 11px; font-weight: 700;
+      padding: 7px 10px; cursor: pointer; color: var(--mid);
+    }
+    .pill:hover { color: var(--ink); background: #f0f0f0; }
+    .pill.active { background: #111; color: #fff; border-color: #111; }
+
+    .stage { max-width: 1400px; margin: 0 auto; }
+    .section { margin: 0 0 34px; }
+    .section h2 {
+      margin: 0 0 12px; font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mid);
+      border-bottom: 1.5px solid #bbb; padding-bottom: 7px;
+    }
+    .grid { display: flex; flex-wrap: wrap; gap: 28px 22px; }
+    .item { width: var(--w); }
+    .label { font-size: 12px; font-weight: 700; margin: 0 0 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .pattern {
+      display: inline-block; border: 1px solid #999; padding: 1px 5px;
+      font-size: 9px; color: var(--mid); margin-left: 6px; vertical-align: middle;
+      font-weight: 600;
+    }
+
+    .stage[data-density="compact"] { --w: 280px; --h: 560px; }
+    .stage[data-density="comfy"] { --w: 320px; --h: 640px; }
+    .stage[data-density="tall"] { --w: 300px; --h: 720px; }
+
+    /* override original phone for grid */
+    .phone {
+      width: var(--w) !important;
+      height: var(--h) !important;
+      border-radius: 28px;
+      border: 2px solid #111;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+      box-shadow: none;
+      flex-shrink: 0;
+    }
+    .phone .screen {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column;
+      background: var(--bg, #fff);
+    }
+    .phone .screen.active { display: flex; }
+    .bottom-nav button:disabled { opacity: 1; cursor: default; }
+
+    /* content modes */
+    .stage[data-content="cards"] .card,
+    .stage[data-content="cards"] .child-card,
+    .stage[data-content="cards"] .insight-card {
+      box-shadow: 3px 3px 0 #ccc;
+    }
+    .stage[data-content="dense"] .scroll { padding: 0 10px 10px; }
+    .stage[data-content="dense"] .card,
+    .stage[data-content="dense"] .child-card,
+    .stage[data-content="dense"] .insight-card { padding: 10px; margin-bottom: 8px; }
+    .stage[data-content="airy"] .scroll { padding: 0 18px 18px; }
+    .stage[data-content="airy"] .card,
+    .stage[data-content="airy"] .child-card { margin-bottom: 16px; }
+
+    /* shell variants for bottom-nav */
+    .stage[data-shell="top"] .phone .bottom-nav {
+      order: -1;
+      border-top: none;
+      border-bottom: 1.5px solid #111;
+      padding: 14px 4px 8px;
+    }
+    .stage[data-shell="top"] .phone .screen { display: flex; flex-direction: column; }
+    .stage[data-shell="float"] .phone .bottom-nav {
+      position: absolute; left: 8%; right: 8%; bottom: 10px;
+      height: auto; border: 2px solid #111; border-radius: 4px;
+      padding: 6px 4px; z-index: 4;
+    }
+    .stage[data-shell="float"] .phone .scroll { padding-bottom: 72px; }
+    .stage[data-shell="rail"] .phone { display: flex; flex-direction: row; }
+    .stage[data-shell="rail"] .phone .screen {
+      position: relative; flex: 1; inset: auto;
+    }
+    .stage[data-shell="rail"] .phone .bottom-nav {
+      flex-direction: column; width: 56px; height: auto;
+      border-top: none; border-right: 1.5px solid #111;
+      padding: 10px 4px; order: -1;
+    }
+    .stage[data-shell="rail"] .phone .bottom-nav button {
+      font-size: 0; gap: 0; padding: 6px 0;
+    }
+    .stage[data-shell="rail"] .phone .bottom-nav .nav-ico { margin: 0 auto; }
+    .stage[data-shell="minimal"] .phone .bottom-nav { display: none; }
+
+    .stage[data-filter="auth"] .section:not([data-group="auth"]) { display: none; }
+    .stage[data-filter="home"] .section:not([data-group="home"]) { display: none; }
+    .stage[data-filter="kids"] .section:not([data-group="kids"]) { display: none; }
+    .stage[data-filter="insights"] .section:not([data-group="insights"]) { display: none; }
+    .stage[data-filter="settings"] .section:not([data-group="settings"]) { display: none; }
+
+    .footer-count {
+      max-width: 1400px; margin: 8px auto 0; font-size: 12px; color: var(--mid);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .sync-status { display: inline-block; margin-left: 10px; font-size: 11px; color: var(--mid); }
+    .sync-status.ok { color: #2a7a3a; }
+    .sync-status.local { color: #9a6b00; }
+    .sync-status.err { color: #a33; }
+
+    /* comments (same as child) */
+    .comments {
+      margin-top: 10px; border: 1.5px solid #111; background: #fff;
+      width: var(--w); font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .comments-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      padding: 7px 8px; border-bottom: 1px solid #ddd; background: #fafafa;
+      cursor: pointer; user-select: none;
+    }
+    .comments-head strong { font-size: 10px; letter-spacing: 0.04em; }
+    .comments-head .count { color: var(--mid); font-weight: 700; }
+    .comments-body { padding: 8px; display: none; }
+    .comments.open .comments-body { display: block; }
+    .c-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .c-empty { color: var(--mid); font-size: 10px; padding: 4px 0 2px; }
+    .c-item { border: 1px solid #e0e0e0; background: #fafafa; padding: 7px 8px; }
+    .c-meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 4px; }
+    .c-name { font-weight: 700; font-size: 10px; }
+    .c-time { color: var(--mid); font-size: 9px; }
+    .c-text { white-space: pre-wrap; word-break: break-word; line-height: 1.4; margin: 0 0 6px; }
+    .c-actions { display: flex; gap: 6px; }
+    .c-actions button, .c-form button {
+      border: 1px solid #bbb; background: #fff; font: inherit; font-size: 9px;
+      font-weight: 700; padding: 4px 7px; cursor: pointer; color: var(--mid);
+    }
+    .c-actions button:hover, .c-form button:hover { color: var(--ink); border-color: #888; }
+    .c-actions .danger:hover { color: #a33; border-color: #a33; }
+    .c-form {
+      display: flex; flex-direction: column; gap: 6px;
+      border-top: 1px dashed #ddd; padding-top: 8px;
+    }
+    .c-form textarea, .c-form input {
+      width: 100%; border: 1px solid #ccc; background: #fff; font: inherit;
+      font-size: 10px; padding: 6px 7px; resize: vertical; color: var(--ink);
+    }
+    .c-form textarea { min-height: 52px; }
+    .c-form .c-row { display: flex; gap: 6px; align-items: center; }
+    .c-form .c-row input { flex: 1; min-width: 0; }
+    .c-form .c-row button.primary {
+      background: var(--ink); color: #fff; border-color: var(--ink);
+    }
+    .c-edit-area {
+      width: 100%; min-height: 48px; margin-bottom: 6px; font: inherit;
+      font-size: 10px; padding: 6px; border: 1px solid #ccc;
+    }
+
+    /* kill original full-page stage centering */
+    .stage-original { display: contents; }
+
+  </style>
+</head>
+<body>
+  <nav class="app-switch" aria-label="Wireframe set">
+    <a class="sw" href="kea_mockup.html">Child app</a>
+    <a class="sw on" href="parent_mockup.html" aria-current="page">Parent portal</a>
+    <span class="sw-hint">switch wireframe set</span>
+  </nav>
+
+  <div class="topbar">
+    <div class="brand">
+      <h1>Kea Portal · Parent Wireframes</h1>
+      <p>Original portal visuals (logo, icons, radar, cards). Switch shell / content / density / filter; comment on each frame.</p>
+    </div>
+    <div class="controls">
+      <div class="control-row">
+        <span>Shell</span>
+        <div class="pills" role="group" aria-label="App shell">
+          <button class="pill active" data-shell="bottom" type="button">Bottom tabs</button>
+          <button class="pill" data-shell="top" type="button">Top tabs</button>
+          <button class="pill" data-shell="float" type="button">Float dock</button>
+          <button class="pill" data-shell="rail" type="button">Side rail</button>
+          <button class="pill" data-shell="minimal" type="button">Minimal</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <span>Content</span>
+        <div class="pills" role="group" aria-label="Content layout">
+          <button class="pill active" data-content="flat" type="button">Flat</button>
+          <button class="pill" data-content="cards" type="button">Cards</button>
+          <button class="pill" data-content="dense" type="button">Dense</button>
+          <button class="pill" data-content="airy" type="button">Airy</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <span>Density</span>
+        <div class="pills" role="group" aria-label="Frame density">
+          <button class="pill" data-density="compact" type="button">Compact</button>
+          <button class="pill active" data-density="comfy" type="button">Comfy</button>
+          <button class="pill" data-density="tall" type="button">Tall</button>
+        </div>
+      </div>
+      <div class="control-row">
+        <span>Filter</span>
+        <div class="pills" role="group" aria-label="Situation filter">
+          <button class="pill active" data-filter="all" type="button">All</button>
+          <button class="pill" data-filter="auth" type="button">Auth</button>
+          <button class="pill" data-filter="home" type="button">Home</button>
+          <button class="pill" data-filter="kids" type="button">Kids</button>
+          <button class="pill" data-filter="insights" type="button">Insights</button>
+          <button class="pill" data-filter="settings" type="button">Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage" data-shell="bottom" data-content="flat" data-density="comfy" data-filter="all">
+
+    <section class="section" data-group="auth">
+      <h2>Auth · login</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">01 · Login <span class="pattern">form</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="login">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="login-body">
+            <div class="logo-mark"></div>
+            <h1 style="font-size:28px;font-weight:800">Kea Portal</h1>
+            <p style="color:var(--muted);font-size:13px;margin-bottom:8px">Sign in to manage your family</p>
+            <div class="field-group">
+              <label>Email</label>
+              <input class="input" value="parent@email.com" readonly />
+            </div>
+            <div class="field-group">
+              <label>Password</label>
+              <input class="input" type="password" value="password" readonly />
+            </div>
+            <button class="btn btn-primary btn-block">Sign in</button>
+            
+          </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">02 · Login error <span class="pattern">error</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="login-error">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="login-body">
+            <div class="logo-mark"></div>
+            <h1 style="font-size:28px;font-weight:800">Kea Portal</h1>
+            <p style="color:var(--muted);font-size:13px;margin-bottom:8px">Sign in to manage your family</p>
+            <div class="error-banner">Incorrect email or password. Try again.</div>
+            <div class="field-group">
+              <label>Email</label>
+              <input class="input" value="parent@email.com" readonly />
+            </div>
+            <div class="field-group">
+              <label>Password</label>
+              <input class="input" type="password" value="wrong" readonly />
+            </div>
+            <button class="btn btn-primary btn-block">Try again</button>
+            
+          </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-group="home">
+      <h2>Home · dashboard & screen time</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">03 · Dashboard EMA <span class="pattern">radar</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="dashboard">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Family Dashboard</h1>
+              <div class="sub">Overview of all your children's device activity</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn" title="Theme">☾</button>
+              <button class="icon-btn" title="Alerts">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="card">
+              <h3>Learning domains (EMA)</h3>
+              <div class="filters" style="margin-top:12px">
+                <div class="select-mock">
+                  <div>
+                    <span class="label">Child</span>
+                    Chaitanya
+                  </div>
+                  ▾
+                </div>
+                <div class="select-mock">
+                  <div>
+                    <span class="label">Time range</span>
+                    Last 7 days
+                  </div>
+                  ▾
+                </div>
+              </div>
+              <div class="radar-wrap">
+                <svg class="radar" viewBox="0 0 220 220" aria-hidden="true">
+                  <polygon points="110,30 180,80 155,165 65,165 40,80" fill="none" stroke="#bbbbbb" stroke-width="1"/>
+                  <polygon points="110,50 160,85 142,145 78,145 60,85" fill="none" stroke="#bbbbbb" stroke-width="1"/>
+                  <polygon points="110,70 140,90 130,125 90,125 80,90" fill="none" stroke="#bbbbbb" stroke-width="1"/>
+                  <line x1="110" y1="110" x2="110" y2="30" stroke="#bbbbbb"/>
+                  <line x1="110" y1="110" x2="180" y2="80" stroke="#bbbbbb"/>
+                  <line x1="110" y1="110" x2="155" y2="165" stroke="#bbbbbb"/>
+                  <line x1="110" y1="110" x2="65" y2="165" stroke="#bbbbbb"/>
+                  <line x1="110" y1="110" x2="40" y2="80" stroke="#bbbbbb"/>
+                  <polygon points="110,48 155,95 130,145 85,140 70,95" fill="rgba(0,0,0,.08)" stroke="#111111" stroke-width="2"/>
+                  <circle cx="110" cy="48" r="3.5" fill="#111111"/>
+                  <circle cx="155" cy="95" r="3.5" fill="#111111"/>
+                  <circle cx="130" cy="145" r="3.5" fill="#111111"/>
+                  <circle cx="85" cy="140" r="3.5" fill="#111111"/>
+                  <circle cx="70" cy="95" r="3.5" fill="#111111"/>
+                  <text x="110" y="18" text-anchor="middle" fill="#555555" font-size="10">Academic</text>
+                  <text x="198" y="82" text-anchor="start" fill="#555555" font-size="10">Emotional</text>
+                  <text x="160" y="188" text-anchor="middle" fill="#555555" font-size="10">Social</text>
+                  <text x="55" y="188" text-anchor="middle" fill="#555555" font-size="10">Analytical</text>
+                  <text x="8" y="82" text-anchor="start" fill="#555555" font-size="10">Communication</text>
+                </svg>
+              </div>
+              <h3 style="margin-top:4px">What each domain means</h3>
+              <p class="muted" style="margin:6px 0 4px">Scores are estimated from Kea conversations using an extraction service.</p>
+              <dl class="domain-list">
+                <dt>Academic</dt>
+                <dd>Math, Reading, Science, History and school topics.</dd>
+                <dt>Emotional</dt>
+                <dd>Naming feelings, regulation, seeking support.</dd>
+                <dt>Social</dt>
+                <dd>Sharing, fairness, empathy, peer interactions.</dd>
+                <dt>Analytical</dt>
+                <dd>Problem-solving, reasoning, curiosity.</dd>
+                <dt>Communication</dt>
+                <dd>Explaining ideas, asking questions, listening.</dd>
+              </dl>
+              
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="dashboard"><button type="button" class="on" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">04 · Dashboard loading <span class="pattern">skeleton</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="dashboard-loading">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Family Dashboard</h1>
+              <div class="sub">Overview of all your children's device activity</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="card">
+              <div class="skeleton" style="width:60%"></div>
+              <div class="skeleton" style="width:40%;height:10px"></div>
+              <div class="loading" style="padding:28px 0">
+                <div class="spinner"></div>
+                <div style="font-size:12px">Loading learning domains…</div>
+              </div>
+              <div class="skeleton"></div>
+              <div class="skeleton" style="width:80%"></div>
+              <div class="skeleton" style="width:70%"></div>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="dashboard"><button type="button" class="on" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">05 · Dashboard empty <span class="pattern">empty</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="dashboard-empty">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Family Dashboard</h1>
+              <div class="sub">Overview of all your children's device activity</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="card">
+              <div class="empty">
+                <div class="big">◈</div>
+                <h3>No domain data yet</h3>
+                <p>EMA scores appear after your child chats with Kea. Add a child to get started.</p>
+                <button class="btn btn-primary">+ Add Child</button>
+                
+              </div>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="dashboard"><button type="button" class="on" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">15 · Screen time <span class="pattern">limits</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="screen-time">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Screen Time</h1>
+              <div class="sub">Daily limits and device controls</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="filters">
+              <div class="select-mock">
+                <div><span class="label">Child</span>Chaitanya</div>▾
+              </div>
+            </div>
+            <div class="card">
+              <h3>Today · 0m / 60m</h3>
+              <div class="progress-bar"><i style="width:5%"></i></div>
+              <p class="muted">Daily limit resets at midnight.</p>
+              <div class="btn-row">
+                <button class="btn btn-ghost">+15 min</button>
+                <button class="btn btn-outline" >Lock device</button>
+              </div>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="screen"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="on" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-group="kids">
+      <h2>Children · profiles</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">06 · Children list <span class="pattern">cards</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="children">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Children Profiles</h1>
+              <div class="sub">Manage your children's profiles and devices</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <button class="btn btn-primary btn-block" style="margin-bottom:14px">+ Add Child</button>
+            
+
+            <div class="child-card">
+              <div class="child-avatar">👤<span class="online"></span></div>
+              <div class="name">Chaitanya</div>
+              <div class="age">Age 7</div>
+              <div class="stats">
+                <div><div class="k">Screen time today</div><div class="v">0m</div></div>
+                <div><div class="k">Safety Score</div><div class="v">95%</div></div>
+                <div><div class="k">Chats today</div><div class="v">0</div></div>
+                <div><div class="k">Battery</div><div class="v">100%</div></div>
+              </div>
+              <button class="btn btn-ghost btn-block">✎ Edit Profile</button>
+            </div>
+
+            <div class="child-card">
+              <div class="child-avatar">👤<span class="online"></span></div>
+              <div class="name">Jogi</div>
+              <div class="age">Age 15</div>
+              <div class="stats">
+                <div><div class="k">Screen time today</div><div class="v">0m</div></div>
+                <div><div class="k">Safety Score</div><div class="v">95%</div></div>
+                <div><div class="k">Chats today</div><div class="v">0</div></div>
+                <div><div class="k">Battery</div><div class="v">100%</div></div>
+              </div>
+              <button class="btn btn-ghost btn-block">✎ Edit Profile</button>
+            </div>
+
+            <div class="child-card">
+              <div class="child-avatar">👤<span class="online"></span></div>
+              <div class="name">Kiran</div>
+              <div class="age">Age 12</div>
+              <div class="stats">
+                <div><div class="k">Screen time today</div><div class="v">0m</div></div>
+                <div><div class="k">Safety Score</div><div class="v">95%</div></div>
+                <div><div class="k">Chats today</div><div class="v">2</div></div>
+                <div><div class="k">Battery</div><div class="v">100%</div></div>
+              </div>
+              <button class="btn btn-ghost btn-block">✎ Edit Profile</button>
+            </div>
+
+            <div class="child-card">
+              <div class="child-avatar">👤<span class="online"></span></div>
+              <div class="name">Tatwik</div>
+              <div class="age">Age 6</div>
+              <div class="stats">
+                <div><div class="k">Screen time today</div><div class="v">12m</div></div>
+                <div><div class="k">Safety Score</div><div class="v">95%</div></div>
+                <div><div class="k">Chats today</div><div class="v">4</div></div>
+                <div><div class="k">Battery</div><div class="v">100%</div></div>
+              </div>
+              <button class="btn btn-ghost btn-block">✎ Edit Profile</button>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="children"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="on" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">07 · Children empty <span class="pattern">empty</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="children-empty">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Children Profiles</h1>
+              <div class="sub">Manage your children's profiles and devices</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="empty">
+              <div class="big">👶</div>
+              <h3>No children yet</h3>
+              <p>Create a child profile and connect a Kea device to start monitoring.</p>
+              <button class="btn btn-primary">+ Add Child</button>
+              
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="children"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="on" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">08 · Add child <span class="pattern">form</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="add-child">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="back-row">
+            <button>←</button>
+            <div style="flex:1">
+              <div style="font-size:18px;font-weight:700">Add Child</div>
+              <div style="font-size:12px;color:var(--muted)">Create a new child profile and connect a device.</div>
+            </div>
+            <button class="close-x">✕</button>
+          </div>
+          <div class="scroll">
+            <div class="field-group">
+              <label>Child's Name</label>
+              <input class="input" placeholder="Full name" />
+            </div>
+            <div class="field-group">
+              <label>Nickname</label>
+              <input class="input" placeholder="Max 6 characters" maxlength="6" id="nick" />
+              <div class="hint">Shown on the Kea device. Required, 6 characters or less (<span id="nick-count">0</span>/6).</div>
+            </div>
+            <div class="field-group">
+              <label>Grade (1–12)</label>
+              <input class="input" placeholder="e.g. 5" />
+            </div>
+            <div class="field-group">
+              <label>Date of Birth</label>
+              <div class="input-wrap">
+                <input class="input" placeholder="dd/mm/yyyy" />
+                <span class="suffix">📅</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Device ID</label>
+              <input class="input" placeholder="Enter Kea device ID" />
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-ghost">Cancel</button>
+              <button class="btn btn-primary">Continue to Consent</button>
+            </div>
+          </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">09 · Parental consent <span class="pattern">confirm</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="add-consent">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="back-row">
+            <button>←</button>
+            <div style="flex:1">
+              <div style="font-size:18px;font-weight:700">Parental Consent</div>
+              <div style="font-size:12px;color:var(--muted)">Confirm before linking the device.</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="card">
+              <h3>What Kea will collect</h3>
+              <p class="muted" style="margin-top:8px">
+                Chat transcripts used for learning insights, screen-time usage,
+                battery, and safety signals. You can change Guardrails anytime in Settings.
+              </p>
+            </div>
+            <div class="card">
+              <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;cursor:pointer">
+                <input type="checkbox" checked style="margin-top:3px" />
+                <span>I am the parent/guardian and consent to create this child profile.</span>
+              </label>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-ghost">Back</button>
+              <button class="btn btn-primary" id="consent-done">Create profile</button>
+            </div>
+          </div>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">10 · Edit child <span class="pattern">form</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="edit-child">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="back-row">
+            <button>←</button>
+            <div style="flex:1">
+              <div style="font-size:18px;font-weight:700">Edit Profile</div>
+              <div style="font-size:12px;color:var(--muted)">Chaitanya · Age 7</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div style="text-align:center;margin-bottom:16px">
+              <div class="child-avatar" style="margin:0 auto 8px">👤<span class="online"></span></div>
+              <button class="btn btn-ghost" style="padding:8px 12px;font-size:12px">Change photo</button>
+            </div>
+            <div class="field-group">
+              <label>Child's Name</label>
+              <input class="input" value="Chaitanya" />
+            </div>
+            <div class="field-group">
+              <label>Nickname</label>
+              <input class="input" value="Chaitu" maxlength="6" />
+            </div>
+            <div class="field-group">
+              <label>Grade</label>
+              <input class="input" value="2" />
+            </div>
+            <div class="field-group">
+              <label>Date of Birth</label>
+              <input class="input" value="12/03/2019" />
+            </div>
+            <div class="field-group">
+              <label>Device ID</label>
+              <input class="input" value="KEA-8842-A1" readonly style="opacity:.7" />
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-ghost">Cancel</button>
+              <button class="btn btn-primary">Save</button>
+            </div>
+            <button class="btn btn-outline btn-block" style="margin-top:12px">Remove child</button>
+          </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-group="insights">
+      <h2>Insights · reports</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">11 · Insights weekly <span class="pattern">feed</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="insights-weekly">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Insights</h1>
+              <div class="sub">Weekly report for your family</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="seg">
+              <button class="on">Weekly</button>
+              <button>Monthly</button>
+            </div>
+            <div class="filters">
+              <div class="select-mock">All children ▾</div>
+            </div>
+            <div class="date-nav">
+              <button>‹</button>
+              <span>Sep 20 – Sep 26, 2026</span>
+              <button>›</button>
+            </div>
+            <div class="section-head">
+              <h2>✨ Weekly summary</h2>
+              <span>4 summaries</span>
+            </div>
+
+            <div class="insight-card">
+              <div class="insight-top">
+                <div class="spark">✦</div>
+                <strong style="font-size:13px">Tatwik</strong>
+                <span class="tag summary">SUMMARY</span>
+                <span class="insight-date">Sep 26, 2026</span>
+              </div>
+              <p class="insight-body">
+                Light screen use this week with plenty of offline play. Tatwik explored how gravity works
+                and stayed cheerful and confident in chats with Kea.
+              </p>
+            </div>
+
+            <div class="insight-card">
+              <div class="insight-top">
+                <div class="spark">✦</div>
+                <strong style="font-size:13px">Chaitu_06</strong>
+                <span class="tag summary">SUMMARY</span>
+                <span class="insight-date">Sep 26, 2026</span>
+              </div>
+              <p class="insight-body">
+                Curious about space and music. Asked follow-up questions in Tutor and practiced calming
+                strategies when frustrated with a hard problem.
+              </p>
+            </div>
+
+            <div class="insight-card">
+              <div class="insight-top">
+                <div class="spark">✦</div>
+                <strong style="font-size:13px">Chaitanyakadavakollu</strong>
+                <span class="tag summary">SUMMARY</span>
+                <span class="insight-date">Sep 25, 2026</span>
+              </div>
+              <p class="insight-body">
+                Strong analytical stretch — compared fractions and explained answers out loud.
+                Social themes around fairness came up twice.
+              </p>
+            </div>
+
+            <button class="btn btn-ghost btn-block" style="margin-top:4px">
+              View category insights →
+            </button>
+            
+          </div>
+          <nav class="bottom-nav" data-active="insights"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="on" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">12 · Insights monthly <span class="pattern">feed</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="insights-monthly">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Insights</h1>
+              <div class="sub">Monthly report for your family</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="seg">
+              <button>Weekly</button>
+              <button class="on">Monthly</button>
+            </div>
+            <div class="filters">
+              <div class="select-mock">All children ▾</div>
+            </div>
+            <div class="date-nav">
+              <button>‹</button>
+              <span>September 2026</span>
+              <button>›</button>
+            </div>
+            <div class="section-head">
+              <h2>✨ Monthly summary</h2>
+              <span>4 summaries</span>
+            </div>
+
+            <div class="insight-card">
+              <div class="insight-top">
+                <div class="spark">✦</div>
+                <strong style="font-size:13px">Chaitu_06</strong>
+                <span class="tag summary">SUMMARY</span>
+                <span class="insight-date">Sep 30, 2026</span>
+              </div>
+              <p class="insight-body">
+                Across September, Chaitu_06 leaned into space exploration, early math, and music.
+                Notable growth in sticking with multi-step problems and celebrating small wins.
+              </p>
+            </div>
+
+            <div class="insight-card">
+              <div class="insight-top">
+                <div class="spark">✦</div>
+                <strong style="font-size:13px">Tatwik</strong>
+                <span class="tag summary">SUMMARY</span>
+                <span class="insight-date">Sep 30, 2026</span>
+              </div>
+              <p class="insight-body">
+                Steady curiosity about how things work, with several wellbeing check-ins around friendships
+                and sharing. Screen use stayed within family limits most days.
+              </p>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="insights"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="on" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">13 · Category feed <span class="pattern">filters</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="insights-feed">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Insights</h1>
+              <div class="sub">Monthly report for your family</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="section-head">
+              <h2>Monthly insights</h2>
+              <span>46 insights · 2 categories</span>
+            </div>
+            <div class="chips" id="insight-chips">
+              <button class="chip on" data-filter="all">▦ All (46)</button>
+              <button class="chip" data-filter="learning">📘 Learning (29)</button>
+              <button class="chip" data-filter="wellbeing">♡ Wellbeing (17)</button>
+            </div>
+
+            <div class="insight-card" data-cat="wellbeing">
+              <div class="insight-top">
+                <div class="spark purple">♡</div>
+                <strong style="font-size:13px">Tatwik</strong>
+                <span class="tag wellbeing">WELLBEING</span>
+                <span class="insight-date">Sep 30, 2026</span>
+              </div>
+              <div class="insight-title">SocialConnection</div>
+              <p class="insight-body">
+                Tatwik talked about playing fairly with friends and named feeling proud after helping a sibling.
+                Emotional vocabulary is expanding in everyday chats.
+              </p>
+              <div class="reco">
+                <div class="r-label">✦ RECOMMENDATION</div>
+                <p>Ask Tatwik to retell one kind thing they did this week — reinforces empathy without quizzing.</p>
+              </div>
+            </div>
+
+            <div class="insight-card" data-cat="learning">
+              <div class="insight-top">
+                <div class="spark">📘</div>
+                <strong style="font-size:13px">Chaitu_06</strong>
+                <span class="tag learning">LEARNING</span>
+                <span class="insight-date">Sep 29, 2026</span>
+              </div>
+              <div class="insight-title">SpaceCuriosity</div>
+              <p class="insight-body">
+                Multiple sessions on planets and gravity. Asked “why” questions and connected ideas to Tutor quizzes.
+              </p>
+              <div class="reco">
+                <div class="r-label">✦ RECOMMENDATION</div>
+                <p>Offer a short night-sky walk or a picture book on the solar system this weekend.</p>
+              </div>
+            </div>
+
+            <div class="insight-card" data-cat="learning">
+              <div class="insight-top">
+                <div class="spark">📘</div>
+                <strong style="font-size:13px">Kiran</strong>
+                <span class="tag learning">LEARNING</span>
+                <span class="insight-date">Sep 28, 2026</span>
+              </div>
+              <div class="insight-title">MathPersistence</div>
+              <p class="insight-body">
+                Stayed with fraction problems longer than earlier in the month and explained answers step by step.
+              </p>
+            </div>
+
+            <div class="insight-card" data-cat="wellbeing">
+              <div class="insight-top">
+                <div class="spark purple">♡</div>
+                <strong style="font-size:13px">Chaitanya</strong>
+                <span class="tag wellbeing">WELLBEING</span>
+                <span class="insight-date">Sep 27, 2026</span>
+              </div>
+              <div class="insight-title">EmotionRegulation</div>
+              <p class="insight-body">
+                Practiced calming breaths with Kea after a tough moment. Named feeling “frustrated” then “okay.”
+              </p>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="insights"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="on" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">14 · Insights empty <span class="pattern">empty</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="insights-empty">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Insights</h1>
+              <div class="sub">Weekly report for your family</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="seg">
+              <button class="on">Weekly</button>
+              <button>Monthly</button>
+            </div>
+            <div class="empty">
+              <div class="big">✦</div>
+              <h3>No insights this week</h3>
+              <p>Summaries appear once your children chat with Kea. Check back after a few conversations.</p>
+              <button class="btn btn-primary">Refresh sample</button>
+            </div>
+          </div>
+          <nav class="bottom-nav" data-active="insights"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="on" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-group="settings">
+      <h2>Settings · account & guardrails</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">16 · Settings <span class="pattern">sections</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="settings">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Settings</h1>
+              <div class="sub">Account, profile &amp; safety</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="settings-section">
+              <h3>Profile</h3>
+              <p class="desc">Your parent account details</p>
+              <div class="card" style="padding-top:12px">
+                <div class="field-group">
+                  <label>First Name</label>
+                  <input class="input" value="Chaitanya" />
+                </div>
+                <div class="field-group">
+                  <label>Last Name</label>
+                  <input class="input" value="Kadavakollu" />
+                </div>
+                <div class="field-group">
+                  <label>Mail</label>
+                  <input class="input" type="email" value="parent@email.com" />
+                </div>
+                <div class="field-group" style="margin-bottom:0">
+                  <label>Phone Number</label>
+                  <input class="input" type="tel" value="+91 98765 43210" />
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <h3>Guardrails</h3>
+              <p class="desc">Safety settings and content filters</p>
+              <div class="card">
+                <h3 style="font-size:14px">Content Filtering</h3>
+                <p class="muted" style="margin:4px 0 12px">Manage blocked keywords for chat responses</p>
+                <div class="field-group" style="margin-bottom:0">
+                  <label>Blocked Keywords</label>
+                  <textarea class="textarea">violence
+inappropriate content
+bullying
+murder</textarea>
+                  <div class="hint">Keywords that will prevent unwanted responses or trigger alerts</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn-ghost">Reset to Defaults</button>
+              <button class="btn btn-primary">Save Settings</button>
+            </div>
+
+            <button class="btn btn-outline btn-block" style="margin-top:16px;color:var(--muted)">
+              Sign out
+            </button>
+          </div>
+          <nav class="bottom-nav" data-active="settings"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="on" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="label">17 · Settings saved <span class="pattern">success</span></div>
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen active" data-screen="settings-saved">
+
+          <div class="status-bar"><span>9:41</span><span>LTE ●●●</span></div>
+          <div class="app-header">
+            <div>
+              <h1>Settings</h1>
+              <div class="sub">Account, profile &amp; safety</div>
+            </div>
+            <div class="hdr-actions">
+              <button class="icon-btn">☾</button>
+              <button class="icon-btn">🔔</button>
+              <div class="avatar-sm">C</div>
+            </div>
+          </div>
+          <div class="scroll">
+            <div class="success-banner">✓ Profile and Guardrails saved successfully.</div>
+            <div class="settings-section">
+              <h3>Profile</h3>
+              <p class="desc">Your parent account details</p>
+              <div class="card" style="padding-top:12px">
+                <div class="field-group">
+                  <label>First Name</label>
+                  <input class="input" value="Chaitanya" />
+                </div>
+                <div class="field-group">
+                  <label>Last Name</label>
+                  <input class="input" value="Kadavakollu" />
+                </div>
+                <div class="field-group">
+                  <label>Mail</label>
+                  <input class="input" type="email" value="parent@email.com" />
+                </div>
+                <div class="field-group" style="margin-bottom:0">
+                  <label>Phone Number</label>
+                  <input class="input" type="tel" value="+91 98765 43210" />
+                </div>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h3>Guardrails</h3>
+              <p class="desc">Safety settings and content filters</p>
+              <div class="card">
+                <h3 style="font-size:14px">Content Filtering</h3>
+                <p class="muted" style="margin:4px 0 12px">Manage blocked keywords for chat responses</p>
+                <textarea class="textarea">violence
+inappropriate content
+bullying
+murder</textarea>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block">Done</button>
+          </div>
+          <nav class="bottom-nav" data-active="settings"><button type="button" class="" disabled><span class="nav-ico">⌂</span>Home</button><button type="button" class="" disabled><span class="nav-ico">☺</span>Children</button><button type="button" class="" disabled><span class="nav-ico">✦</span>Insights</button><button type="button" class="" disabled><span class="nav-ico">◷</span>Screen</button><button type="button" class="on" disabled><span class="nav-ico">⚙</span>Settings</button></nav>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p class="footer-count">
+    17 wireframes · original portal UI · switch Shell / Content / Density / Filter above
+    <span class="sync-status" id="syncStatus">comments…</span>
+  </p>
+
+  <script>
+
+    const stage = document.getElementById("stage");
+    const keys = ["shell", "content", "density", "filter"];
+    keys.forEach((key) => {
+      const saved = localStorage.getItem("parent-wf-" + key);
+      if (saved) {
+        stage.setAttribute("data-" + key, saved);
+        document.querySelectorAll("[data-" + key + "]").forEach((btn) => {
+          btn.classList.toggle("active", btn.getAttribute("data-" + key) === saved);
+        });
+      }
+      document.querySelectorAll("[data-" + key + "]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const val = btn.getAttribute("data-" + key);
+          stage.setAttribute("data-" + key, val);
+          localStorage.setItem("parent-wf-" + key, val);
+          document.querySelectorAll("[data-" + key + "]").forEach((b) => {
+            b.classList.toggle("active", b === btn);
+          });
+        });
+      });
+    });
+
+    // Nickname counters (unique ids per frame)
+    document.querySelectorAll('input[maxlength="6"]').forEach((nick, i) => {
+      if (!nick.id) nick.id = "nick-" + i;
+      let count = nick.parentElement.querySelector(".nick-count-live");
+      if (!count) {
+        const hint = nick.parentElement.querySelector(".hint");
+        if (hint) {
+          hint.innerHTML = hint.innerHTML.replace(/<span id="nick-count">\d+<\/span>/, '<span class="nick-count-live">0</span>');
+          count = hint.querySelector(".nick-count-live");
+        }
+      }
+      nick.addEventListener("input", () => {
+        const el = nick.parentElement.querySelector(".nick-count-live, #nick-count");
+        if (el) el.textContent = nick.value.length;
+      });
+    });
+
+    // Insight chips only within their phone
+    document.querySelectorAll(".chips").forEach((chips) => {
+      chips.addEventListener("click", (e) => {
+        const chip = e.target.closest(".chip");
+        if (!chip || !chip.dataset.filter) return;
+        const phone = chips.closest(".phone");
+        chips.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c === chip));
+        const filter = chip.dataset.filter;
+        phone.querySelectorAll(".insight-card[data-cat]").forEach((card) => {
+          const cat = card.dataset.cat;
+          card.style.display = filter === "all" || cat === filter ? "" : "none";
+        });
+      });
+    });
+
+
+/* ── shared comments (no login) ── */
+    const API = "/api/comments?scope=parent";
+    const LS_KEY = "parent-wf-comments";
+    const NAME_KEY = "parent-wf-commenter-name";
+    let store = {};
+    let useApi = false;
+    const syncEl = document.getElementById("syncStatus");
+
+    function uid() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+    function frameIdFromLabel(labelEl) {
+      const m = (labelEl.textContent || "").trim().match(/^(\d+)/);
+      return m ? m[1] : null;
+    }
+    function fmtTime(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, {
+          month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
+        });
+      } catch { return ""; }
+    }
+    function setSync(mode, msg) {
+      syncEl.className = "sync-status " + mode;
+      syncEl.textContent = msg;
+    }
+    function loadLocal() {
+      try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); }
+      catch { return {}; }
+    }
+    function saveLocal(data) {
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+    async function loadStore() {
+      try {
+        const res = await fetch(API, { cache: "no-store" });
+        if (!res.ok) throw new Error("api " + res.status);
+        store = await res.json();
+        if (!store || typeof store !== "object") store = {};
+        useApi = true;
+        saveLocal(store);
+        setSync("ok", "comments · shared");
+      } catch {
+        store = loadLocal();
+        useApi = false;
+        setSync("local", "comments · this browser only (run serve.mjs for team sync)");
+      }
+      renderAll();
+    }
+    async function persist() {
+      saveLocal(store);
+      if (!useApi) return;
+      try {
+        const res = await fetch(API, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(store),
+        });
+        if (!res.ok) throw new Error("save failed");
+        setSync("ok", "comments · shared");
+      } catch {
+        setSync("err", "comments · save failed — retry or check server");
+      }
+    }
+    function getComments(fid) {
+      return Array.isArray(store[fid]) ? store[fid] : [];
+    }
+    async function addComment(fid, name, text) {
+      const list = getComments(fid).slice();
+      list.push({
+        id: uid(),
+        name: name.trim(),
+        text: text.trim(),
+        createdAt: new Date().toISOString(),
+        updatedAt: null,
+      });
+      store[fid] = list;
+      await persist();
+      renderFrame(fid);
+    }
+    async function updateComment(fid, id, text) {
+      const list = getComments(fid).map((c) =>
+        c.id === id
+          ? { ...c, text: text.trim(), updatedAt: new Date().toISOString() }
+          : c
+      );
+      store[fid] = list;
+      await persist();
+      renderFrame(fid);
+    }
+    async function deleteComment(fid, id) {
+      store[fid] = getComments(fid).filter((c) => c.id !== id);
+      await persist();
+      renderFrame(fid);
+    }
+
+    function renderFrame(fid) {
+      const panel = document.querySelector('.comments[data-frame="' + fid + '"]');
+      if (!panel) return;
+      const list = getComments(fid);
+      const countEl = panel.querySelector(".count");
+      const listEl = panel.querySelector(".c-list");
+      countEl.textContent = list.length ? String(list.length) : "0";
+      if (!list.length) {
+        listEl.innerHTML = '<div class="c-empty">No comments yet</div>';
+        return;
+      }
+      listEl.innerHTML = list.map((c) => (
+          '<div class="c-item" data-id="' + c.id + '">' +
+            '<div class="c-meta">' +
+              '<span class="c-name"></span>' +
+              '<span class="c-time"></span>' +
+            '</div>' +
+            '<p class="c-text"></p>' +
+            '<div class="c-actions">' +
+              '<button type="button" data-act="edit">Edit</button>' +
+              '<button type="button" class="danger" data-act="del">Delete</button>' +
+            '</div>' +
+          '</div>'
+      )).join("");
+      list.forEach((c) => {
+        const el = listEl.querySelector('[data-id="' + c.id + '"]');
+        el.querySelector(".c-name").textContent = c.name || "Anon";
+        el.querySelector(".c-time").textContent = fmtTime(c.updatedAt || c.createdAt) + (c.updatedAt ? " · edited" : "");
+        el.querySelector(".c-text").textContent = c.text;
+      });
+    }
+    function renderAll() {
+      document.querySelectorAll(".comments[data-frame]").forEach((p) => {
+        renderFrame(p.getAttribute("data-frame"));
+      });
+    }
+
+    function mountComments() {
+      document.querySelectorAll(".item").forEach((item) => {
+        if (item.querySelector(".comments")) return;
+        const label = item.querySelector(".label");
+        if (!label) return;
+        const fid = frameIdFromLabel(label);
+        if (!fid) return;
+        const panel = document.createElement("div");
+        panel.className = "comments";
+        panel.setAttribute("data-frame", fid);
+        panel.innerHTML =
+          '<div class="comments-head" role="button" tabindex="0">' +
+            '<strong>Comments</strong>' +
+            '<span class="count">0</span>' +
+          '</div>' +
+          '<div class="comments-body">' +
+            '<div class="c-list"></div>' +
+            '<form class="c-form">' +
+              '<textarea name="text" placeholder="Write a comment…" required></textarea>' +
+              '<div class="c-row">' +
+                '<input name="name" type="text" placeholder="Your name" maxlength="40" required />' +
+                '<button type="submit" class="primary">Post</button>' +
+              '</div>' +
+            '</form>' +
+          '</div>';
+        item.appendChild(panel);
+
+        const head = panel.querySelector(".comments-head");
+        const toggle = () => panel.classList.toggle("open");
+        head.addEventListener("click", toggle);
+        head.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+        });
+
+        const form = panel.querySelector(".c-form");
+        const nameInput = form.querySelector('[name="name"]');
+        const savedName = localStorage.getItem(NAME_KEY) || "";
+        if (savedName) nameInput.value = savedName;
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const text = form.text.value.trim();
+          const name = form.name.value.trim();
+          if (!text || !name) return;
+          localStorage.setItem(NAME_KEY, name);
+          form.querySelector('[type="submit"]').disabled = true;
+          await addComment(fid, name, text);
+          form.text.value = "";
+          form.querySelector('[type="submit"]').disabled = false;
+          form.text.focus();
+        });
+
+        panel.querySelector(".c-list").addEventListener("click", async (e) => {
+          const btn = e.target.closest("button[data-act]");
+          if (!btn) return;
+          const itemEl = btn.closest(".c-item");
+          const id = itemEl.getAttribute("data-id");
+          const act = btn.getAttribute("data-act");
+          if (act === "del") {
+            if (!confirm("Delete this comment?")) return;
+            await deleteComment(fid, id);
+            return;
+          }
+          if (act === "edit") {
+            const c = getComments(fid).find((x) => x.id === id);
+            if (!c) return;
+            const textEl = itemEl.querySelector(".c-text");
+            const actions = itemEl.querySelector(".c-actions");
+            if (itemEl.querySelector(".c-edit-area")) return;
+            const ta = document.createElement("textarea");
+            ta.className = "c-edit-area";
+            ta.value = c.text;
+            textEl.style.display = "none";
+            actions.style.display = "none";
+            textEl.after(ta);
+            const row = document.createElement("div");
+            row.className = "c-actions";
+            row.innerHTML =
+              '<button type="button" data-save="1">Save</button>' +
+              '<button type="button" data-cancel="1">Cancel</button>';
+            ta.after(row);
+            row.querySelector("[data-cancel]").onclick = () => renderFrame(fid);
+            row.querySelector("[data-save]").onclick = async () => {
+              const next = ta.value.trim();
+              if (!next) return;
+              await updateComment(fid, id, next);
+            };
+          }
+        });
+      });
+    }
+
+    mountComments();
+    loadStore();
+    setInterval(() => {
+      if (!useApi) return;
+      fetch(API, { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data || typeof data !== "object") return;
+          const a = JSON.stringify(store);
+          const b = JSON.stringify(data);
+          if (a === b) return;
+          store = data;
+          saveLocal(store);
+          renderAll();
+        })
+        .catch(() => {});
+    }, 8000);
+  
+  </script>
+</body>
+</html>

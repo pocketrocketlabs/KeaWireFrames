@@ -1,6 +1,7 @@
 node_modules/
 .netlify/
 comments.json
+comments-parent.json
 .DS_Store
 *.log
 .env

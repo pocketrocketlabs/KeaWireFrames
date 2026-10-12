@@ -1,14 +1,13 @@
 /**
- * Shared comments API — stored in Netlify Blobs (survives deploys).
- * No auth: anyone with the site URL can read/write (team-trust model).
+ * Shared comments API — Netlify Blobs (survives deploys).
+ * No auth (team-trust).
  *
- * GET  → full comments map { "01": [...], ... }
- * PUT  → replace full comments map (body: JSON object)
+ * GET/PUT /api/comments              → blob key "comments" (child)
+ * GET/PUT /api/comments?scope=parent → blob key "comments-parent"
  */
 import { getStore } from "@netlify/blobs";
 
 const STORE = "kea-wireframes";
-const KEY = "comments";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -24,15 +23,31 @@ function json(status, body) {
   });
 }
 
+function blobKey(scope) {
+  return scope === "parent" ? "comments-parent" : "comments";
+}
+
+function resolveScope(req) {
+  try {
+    const url = new URL(req.url);
+    const s = (url.searchParams.get("scope") || "child").toLowerCase();
+    return s === "parent" ? "parent" : "child";
+  } catch {
+    return "child";
+  }
+}
+
 export default async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("", { status: 204, headers: cors });
   }
 
+  const scope = resolveScope(req);
+  const key = blobKey(scope);
   const store = getStore(STORE);
 
   if (req.method === "GET") {
-    const data = (await store.get(KEY, { type: "json" })) || {};
+    const data = (await store.get(key, { type: "json" })) || {};
     return json(200, data);
   }
 
@@ -46,8 +61,8 @@ export default async (req) => {
     if (!data || typeof data !== "object" || Array.isArray(data)) {
       return json(400, { error: "expected object map of frameId → comments[]" });
     }
-    await store.setJSON(KEY, data);
-    return json(200, { ok: true });
+    await store.setJSON(key, data);
+    return json(200, { ok: true, scope });
   }
 
   return json(405, { error: "method not allowed" });

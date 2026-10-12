@@ -1,9 +1,16 @@
 # KeaWireFrames
 
-Child-app wireframes (Chat + Tutor) with **shared comments** (no login).
+Wireframes with **shared comments** on the child set (no login).
+
+| Page | File | Comments scope |
+|------|------|----------------|
+| Child app (Chat + Tutor) | `kea_mockup.html` | `/api/comments` |
+| Parent portal | `parent_mockup.html` | `/api/comments?scope=parent` |
+
+Both pages share the same layout controls (Shell / Content / Density / Filter) and per-frame comment CRUD. Switch with the top **Child app / Parent portal** buttons.
 
 - **Git** = HTML / layouts (versioned)
-- **Netlify Blobs** = comments (survive redeploys; **not** in git)
+- **Netlify Blobs** = comments (keys `comments` + `comments-parent`; survive redeploys; **not** in git)
 
 ## Local
 

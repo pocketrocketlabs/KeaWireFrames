@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 /**
- * Serve kea_mockup.html + shared comments API (no auth).
+ * Serve wireframes + shared comments API (no auth).
  *   node serve.mjs
  *   → http://localhost:8765/kea_mockup.html
+ *   → http://localhost:8765/parent_mockup.html
+ *
+ * Comments scopes (separate files so child/parent don't overwrite):
+ *   GET/PUT /api/comments              → comments.json
+ *   GET/PUT /api/comments?scope=parent → comments-parent.json
  */
 import http from "node:http";
 import fs from "node:fs";
@@ -12,7 +17,6 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 8765);
 const ROOT = __dirname;
-const COMMENTS_FILE = path.join(ROOT, "comments.json");
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -28,9 +32,16 @@ const MIME = {
   ".webp": "image/webp",
 };
 
-function readComments() {
+function commentsPath(scope) {
+  return path.join(
+    ROOT,
+    scope === "parent" ? "comments-parent.json" : "comments.json"
+  );
+}
+
+function readComments(scope) {
   try {
-    const raw = fs.readFileSync(COMMENTS_FILE, "utf8");
+    const raw = fs.readFileSync(commentsPath(scope), "utf8");
     const data = JSON.parse(raw);
     return data && typeof data === "object" && !Array.isArray(data) ? data : {};
   } catch {
@@ -38,8 +49,8 @@ function readComments() {
   }
 }
 
-function writeComments(data) {
-  fs.writeFileSync(COMMENTS_FILE, JSON.stringify(data, null, 2) + "\n", "utf8");
+function writeComments(scope, data) {
+  fs.writeFileSync(commentsPath(scope), JSON.stringify(data, null, 2) + "\n", "utf8");
 }
 
 function send(res, status, body, type = "application/json; charset=utf-8") {
@@ -80,6 +91,11 @@ function safePath(urlPath) {
   return full;
 }
 
+function resolveScope(url) {
+  const s = (url.searchParams.get("scope") || "child").toLowerCase();
+  return s === "parent" ? "parent" : "child";
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || "/", `http://${req.headers.host}`);
 
@@ -88,8 +104,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.pathname === "/api/comments") {
+    const scope = resolveScope(url);
     if (req.method === "GET") {
-      return send(res, 200, readComments());
+      return send(res, 200, readComments(scope));
     }
     if (req.method === "PUT") {
       try {
@@ -98,8 +115,8 @@ const server = http.createServer(async (req, res) => {
         if (!data || typeof data !== "object" || Array.isArray(data)) {
           return send(res, 400, { error: "expected object map of frameId → comments[]" });
         }
-        writeComments(data);
-        return send(res, 200, { ok: true });
+        writeComments(scope, data);
+        return send(res, 200, { ok: true, scope });
       } catch (e) {
         return send(res, 400, { error: String(e.message || e) });
       }
@@ -121,12 +138,13 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-if (!fs.existsSync(COMMENTS_FILE)) {
-  writeComments({});
+for (const scope of ["child", "parent"]) {
+  const p = commentsPath(scope);
+  if (!fs.existsSync(p)) writeComments(scope, {});
 }
 
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Kea wireframes → http://localhost:${PORT}/kea_mockup.html`);
-  console.log(`Comments API  → http://localhost:${PORT}/api/comments`);
-  console.log(`Share LAN URL with team (no login). Comments saved to comments.json`);
+  console.log(`Child  → http://localhost:${PORT}/kea_mockup.html`);
+  console.log(`Parent → http://localhost:${PORT}/parent_mockup.html`);
+  console.log(`API    → http://localhost:${PORT}/api/comments[?scope=parent]`);
 });
