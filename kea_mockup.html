@@ -1565,21 +1565,41 @@
     function saveLocal(data) {
       localStorage.setItem(LS_KEY, JSON.stringify(data));
     }
-    async function loadStore() {
+    async function loadStore({ background = false } = {}) {
       try {
-        const res = await fetch(API, { cache: "no-store" });
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 6000);
+        const res = await fetch(API, {
+          signal: ctrl.signal,
+          headers: { Accept: "application/json" },
+        });
+        clearTimeout(timer);
         if (!res.ok) throw new Error("api " + res.status);
-        store = await res.json();
-        if (!store || typeof store !== "object") store = {};
+        const data = await res.json();
+        if (!data || typeof data !== "object") throw new Error("bad payload");
+        const next = JSON.stringify(data);
+        const prev = JSON.stringify(store);
         useApi = true;
-        saveLocal(store);
+        if (next !== prev) {
+          store = data;
+          saveLocal(store);
+          renderAll();
+        }
         setSync("ok", "comments · shared");
       } catch {
-        store = loadLocal();
-        useApi = false;
-        setSync("local", "comments · this browser only (run serve.mjs for team sync)");
+        if (!background) {
+          if (!Object.keys(store).length) store = loadLocal();
+          useApi = false;
+          setSync("local", "comments · this browser only (run serve.mjs for team sync)");
+          renderAll();
+        }
       }
+    }
+    function bootComments() {
+      store = loadLocal();
       renderAll();
+      setSync("local", "comments · syncing…");
+      loadStore();
     }
     async function persist() {
       saveLocal(store);
@@ -1609,8 +1629,8 @@
         updatedAt: null,
       });
       store[fid] = list;
-      await persist();
       renderFrame(fid);
+      await persist();
     }
     async function updateComment(fid, id, text) {
       const list = getComments(fid).map((c) =>
@@ -1619,13 +1639,13 @@
           : c
       );
       store[fid] = list;
-      await persist();
       renderFrame(fid);
+      await persist();
     }
     async function deleteComment(fid, id) {
       store[fid] = getComments(fid).filter((c) => c.id !== id);
-      await persist();
       renderFrame(fid);
+      await persist();
     }
 
     function renderFrame(fid) {
@@ -1758,22 +1778,15 @@
     }
 
     mountComments();
-    loadStore();
-    setInterval(() => {
-      if (!useApi) return;
-      fetch(API, { cache: "no-store" })
-        .then((r) => (r.ok ? r.json() : null))
-        .then((data) => {
-          if (!data || typeof data !== "object") return;
-          const a = JSON.stringify(store);
-          const b = JSON.stringify(data);
-          if (a === b) return;
-          store = data;
-          saveLocal(store);
-          renderAll();
-        })
-        .catch(() => {});
-    }, 8000);
+    bootComments();
+    function pollRemote() {
+      if (document.hidden) return;
+      loadStore({ background: true });
+    }
+    setInterval(pollRemote, 20000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) pollRemote();
+    });
   </script>
 </body>
 </html>

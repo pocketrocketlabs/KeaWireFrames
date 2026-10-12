@@ -43,9 +43,10 @@ Do **not** commit `comments.json` (it’s gitignored).
 
 `netlify.toml` already sets publish dir + functions folder.
 
-### 3. Blobs (no extra toggle)
+### 3. Blobs + Edge (no extra toggle)
 
-Blobs are available automatically when a Function calls `getStore(...)`.  
+Comments are served by a **Netlify Edge Function** (`netlify/edge-functions/comments.js`) that reads/writes Blobs. Edge is faster than a Node function for this. Blobs still persist across deploys.
+
 After the first successful deploy:
 
 1. Open the site → **Logs** / **Functions** → confirm `comments` deployed
