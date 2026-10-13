@@ -536,6 +536,10 @@
     .stage[data-filter="tutor"] .section[data-group="conn"],
     .stage[data-filter="tutor"] .section[data-group="interrupt"] { display: none; }
     .stage[data-filter="errors"] .section:not([data-group="conn"]):not([data-group="interrupt"]) { display: none; }
+    .stage[data-filter="auth"] .section:not([data-group="auth"]) { display: none; }
+    .stage[data-filter="chat"] .section[data-group="auth"],
+    .stage[data-filter="tutor"] .section[data-group="auth"],
+    .stage[data-filter="errors"] .section[data-group="auth"] { display: none; }
   </style>
 </head>
 <body>
@@ -582,6 +586,7 @@
         <span>Filter</span>
         <div class="pills" role="group" aria-label="Situation filter">
           <button class="pill active" data-filter="all" type="button">All</button>
+          <button class="pill" data-filter="auth" type="button">Auth</button>
           <button class="pill" data-filter="chat" type="button">Chat</button>
           <button class="pill" data-filter="tutor" type="button">Tutor</button>
           <button class="pill" data-filter="errors" type="button">Errors</button>
@@ -592,13 +597,55 @@
 
   <div class="stage" id="stage" data-shell="bottom" data-content="flat" data-density="comfy" data-filter="all">
 
+    <!-- AUTH -->
+    <section class="section" data-group="auth">
+      <h2>Auth · splash &amp; login</h2>
+      <div class="grid">
+
+        <div class="item">
+          <div class="label">01 · Splash <span class="pattern">brand</span></div>
+          <div class="phone">
+            <div class="chrome-main">
+              <div class="sb"><span>9:41</span><span></span></div>
+              <div class="bd center">
+                <div class="ico xl"></div>
+                <div style="font-weight:700;font-size:18px;letter-spacing:0.04em">KEA</div>
+                <div class="x">Your learning buddy</div>
+                <div class="bar" style="width:48px;margin-top:12px"><i style="width:60%"></i></div>
+              </div>
+            </div>
+          </div>
+          <p class="note">No app nav — brand / boot moment</p>
+        </div>
+
+        <div class="item">
+          <div class="label">02 · Login <span class="pattern">child ID</span></div>
+          <div class="phone">
+            <div class="chrome-main">
+              <div class="sb"><span>9:41</span><span></span></div>
+              <div class="bd center">
+                <div class="ico xl"></div>
+                <div style="font-weight:700;font-size:16px">Welcome to Kea</div>
+                <div class="x">Enter your Child ID to continue</div>
+                <div class="box outline" style="width:100%;text-align:left">Child ID</div>
+                <div class="box outline" style="width:100%;text-align:left">•••• · optional PIN</div>
+                <div class="btn" style="width:100%">Continue</div>
+                <div class="x" style="margin-top:4px">Ask a parent if you don’t know your ID</div>
+              </div>
+            </div>
+          </div>
+          <p class="note">Device login via Child ID (no email)</p>
+        </div>
+      </div>
+    </section>
+
     <!-- CHAT CORE -->
     <section class="section" data-group="chat">
       <h2>Chat · core</h2>
       <div class="grid">
 
         <div class="item">
-          <div class="label">01 · Chat home <span class="pattern">column</span></div>
+          <div class="label">03 · Chat home <span class="pattern">column</span></div>
           <div class="phone" data-tab="kea">
             <div class="nav-rail">
               <div class="tab on">Kea</div>
@@ -633,7 +680,7 @@
         </div>
 
         <div class="item">
-          <div class="label">02 · Chat home <span class="pattern">composer-top</span></div>
+          <div class="label">04 · Chat home <span class="pattern">composer-top</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -659,7 +706,7 @@
         </div>
 
         <div class="item">
-          <div class="label">03 · First open <span class="pattern">center</span></div>
+          <div class="label">05 · First open <span class="pattern">center</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -683,7 +730,7 @@
         </div>
 
         <div class="item">
-          <div class="label">04 · First open <span class="pattern">bottom-sheet CTA</span></div>
+          <div class="label">06 · First open <span class="pattern">bottom-sheet CTA</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -705,7 +752,7 @@
         </div>
 
         <div class="item">
-          <div class="label">05 · Typing <span class="pattern">inline</span></div>
+          <div class="label">07 · Typing <span class="pattern">inline</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -733,7 +780,7 @@
       <div class="grid">
 
         <div class="item">
-          <div class="label">06 · Offline <span class="pattern">fullscreen</span></div>
+          <div class="label">08 · Offline <span class="pattern">fullscreen</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -755,7 +802,7 @@
         </div>
 
         <div class="item">
-          <div class="label">07 · Offline <span class="pattern">split</span></div>
+          <div class="label">09 · Offline <span class="pattern">split</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -780,7 +827,7 @@
         </div>
 
         <div class="item">
-          <div class="label">08 · Unreachable <span class="pattern">banner</span></div>
+          <div class="label">10 · Unreachable <span class="pattern">banner</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -801,7 +848,7 @@
         </div>
 
         <div class="item">
-          <div class="label">09 · Send failed <span class="pattern">inline</span></div>
+          <div class="label">11 · Send failed <span class="pattern">inline</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -824,7 +871,7 @@
         </div>
 
         <div class="item">
-          <div class="label">10 · Voice <span class="pattern">focus</span></div>
+          <div class="label">12 · Voice <span class="pattern">focus</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -843,7 +890,7 @@
         </div>
 
         <div class="item">
-          <div class="label">11 · Voice <span class="pattern">bottom sheet</span></div>
+          <div class="label">13 · Voice <span class="pattern">bottom sheet</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -864,7 +911,7 @@
         </div>
 
         <div class="item">
-          <div class="label">12 · Mic blocked <span class="pattern">hint</span></div>
+          <div class="label">14 · Mic blocked <span class="pattern">hint</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -893,7 +940,7 @@
       <h2>Chat · parent interrupts</h2>
       <div class="grid">
         <div class="item">
-          <div class="label">13 · Toast</div>
+          <div class="label">15 · Toast</div>
           <div class="phone">
             <div class="annot">toast</div>
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
@@ -914,7 +961,7 @@
         </div>
 
         <div class="item">
-          <div class="label">14 · In-chat card</div>
+          <div class="label">16 · In-chat card</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -936,7 +983,7 @@
         </div>
 
         <div class="item">
-          <div class="label">15 · Bottom sheet</div>
+          <div class="label">17 · Bottom sheet</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -957,7 +1004,7 @@
         </div>
 
         <div class="item">
-          <div class="label">16 · Fullscreen</div>
+          <div class="label">18 · Fullscreen</div>
           <div class="phone">
             <div class="chrome-main">
               <div class="sb"><span>9:41</span><span>online</span></div>
@@ -975,7 +1022,7 @@
         </div>
 
         <div class="item">
-          <div class="label">17 · Side drawer interrupt</div>
+          <div class="label">19 · Side drawer interrupt</div>
           <div class="phone" style="flex-direction:row">
             <div class="chrome-main" style="opacity:.4">
               <div class="sb"><span>9:41</span><span>online</span></div>
@@ -1000,7 +1047,7 @@
       <div class="grid">
 
         <div class="item">
-          <div class="label">18 · Subjects <span class="pattern">list</span></div>
+          <div class="label">20 · Subjects <span class="pattern">list</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1021,7 +1068,7 @@
         </div>
 
         <div class="item">
-          <div class="label">19 · Subjects <span class="pattern">2×2</span></div>
+          <div class="label">21 · Subjects <span class="pattern">2×2</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1044,7 +1091,7 @@
         </div>
 
         <div class="item">
-          <div class="label">20 · Subjects <span class="pattern">carousel</span></div>
+          <div class="label">22 · Subjects <span class="pattern">carousel</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1069,7 +1116,7 @@
         </div>
 
         <div class="item">
-          <div class="label">21 · Empty subjects</div>
+          <div class="label">23 · Empty subjects</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1088,7 +1135,7 @@
         </div>
 
         <div class="item">
-          <div class="label">22 · Load failed</div>
+          <div class="label">24 · Load failed</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1104,7 +1151,7 @@
         </div>
 
         <div class="item">
-          <div class="label">23 · Topics + locked</div>
+          <div class="label">25 · Topics + locked</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1123,7 +1170,7 @@
         </div>
 
         <div class="item">
-          <div class="label">24 · Topics <span class="pattern">map / path</span></div>
+          <div class="label">26 · Topics <span class="pattern">map / path</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1147,7 +1194,7 @@
         </div>
 
         <div class="item">
-          <div class="label">25 · Generating</div>
+          <div class="label">27 · Generating</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1165,7 +1212,7 @@
         </div>
 
         <div class="item">
-          <div class="label">26 · Lesson <span class="pattern">media-first</span></div>
+          <div class="label">28 · Lesson <span class="pattern">media-first</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1185,7 +1232,7 @@
         </div>
 
         <div class="item">
-          <div class="label">27 · Lesson <span class="pattern">prose-first</span></div>
+          <div class="label">29 · Lesson <span class="pattern">prose-first</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1207,7 +1254,7 @@
         </div>
 
         <div class="item">
-          <div class="label">28 · Lesson <span class="pattern">steps wizard</span></div>
+          <div class="label">30 · Lesson <span class="pattern">steps wizard</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1237,7 +1284,7 @@
       <div class="grid">
 
         <div class="item">
-          <div class="label">29 · Quiz <span class="pattern">stack</span></div>
+          <div class="label">31 · Quiz <span class="pattern">stack</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1257,7 +1304,7 @@
         </div>
 
         <div class="item">
-          <div class="label">30 · Quiz <span class="pattern">2×2</span></div>
+          <div class="label">32 · Quiz <span class="pattern">2×2</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1279,7 +1326,7 @@
         </div>
 
         <div class="item">
-          <div class="label">31 · Quiz <span class="pattern">true/false strip</span></div>
+          <div class="label">33 · Quiz <span class="pattern">true/false strip</span></div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1298,7 +1345,7 @@
         </div>
 
         <div class="item">
-          <div class="label">32 · Summary mid</div>
+          <div class="label">34 · Summary mid</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1318,7 +1365,7 @@
         </div>
 
         <div class="item">
-          <div class="label">33 · Perfect / zero / abandon / resume</div>
+          <div class="label">35 · Perfect / zero / abandon / resume</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1345,7 +1392,7 @@
       <div class="grid">
 
         <div class="item">
-          <div class="label">34 · Handoff to Tutor</div>
+          <div class="label">36 · Handoff to Tutor</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -1364,7 +1411,7 @@
         </div>
 
         <div class="item">
-          <div class="label">35 · Ask Kea split</div>
+          <div class="label">37 · Ask Kea split</div>
           <div class="phone" style="flex-direction:column">
             <div class="sb"><span>9:41</span><span>tutor</span></div>
             <div style="flex:1;border-bottom:2px solid #111;padding:8px;font-size:10px">Lesson · Fractions<br><span class="x">dimmed</span></div>
@@ -1378,7 +1425,7 @@
         </div>
 
         <div class="item">
-          <div class="label">36 · Ask Kea drawer</div>
+          <div class="label">38 · Ask Kea drawer</div>
           <div class="phone" style="flex-direction:row">
             <div style="flex:1;padding:8px;opacity:.4;font-size:10px;border-right:2px solid #111">
               Lesson…<br>options…
@@ -1393,7 +1440,7 @@
         </div>
 
         <div class="item">
-          <div class="label">37 · Interrupt on quiz</div>
+          <div class="label">39 · Interrupt on quiz</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab">Kea</div><div class="tab on">Tutor</div></div>
             <div class="chrome-main">
@@ -1410,7 +1457,7 @@
         </div>
 
         <div class="item">
-          <div class="label">38 · Bedtime lock</div>
+          <div class="label">40 · Bedtime lock</div>
           <div class="phone">
             <div class="chrome-main">
               <div class="sb"><span>9:41</span><span>locked</span></div>
@@ -1424,7 +1471,7 @@
         </div>
 
         <div class="item">
-          <div class="label">39 · Generating in background</div>
+          <div class="label">41 · Generating in background</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -1439,7 +1486,7 @@
         </div>
 
         <div class="item">
-          <div class="label">40 · Safe redirect</div>
+          <div class="label">42 · Safe redirect</div>
           <div class="phone">
             <div class="nav-rail"><div class="tab on">Kea</div><div class="tab">Tutor</div></div>
             <div class="chrome-main">
@@ -1461,7 +1508,7 @@
   </div>
 
   <p class="footer-count">
-    40 wireframes · switch Shell / Content / Density / Filter above
+    42 wireframes · switch Shell / Content / Density / Filter above
     <span class="sync-status" id="syncStatus">comments…</span>
   </p>
 
